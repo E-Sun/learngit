@@ -98,7 +98,7 @@ git checkout -b 分支名
 创建和远程仓库分支对应的分支
 git checkout -b 分支名 origin/远程仓库分支名
 合并指定分支到当前分支（默认使用Fast forward模式）
-git merge 分支名
+git merge 分支名 -m ""
 删除指定分支（已执行过合并操作）
 git branch -d 分支名
 强制删除指定分支（未执行过合并操作）
