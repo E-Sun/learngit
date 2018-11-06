@@ -1,19 +1,29 @@
 下载Git：https://git-scm.com/downloads
 安装Git
 打开Git命令行：开始->Git->Git Bash
-设置姓名、邮箱
+查看Git命令帮助手册
+git --help
+设置姓名、邮箱（--global表示将该配置修改操作应用到全局）
 git config --global user.name "Your Name"
 git config --global user.email "email@example.com"
-查看配置信息
+查看全部配置信息
 git config --list
-将当前目录变成Git可以管理的仓库
+查看指定配置信息
+git config <key>
+将当前目录变成Git本地仓库（生成.git目录，其中包含Git本地仓库的全部信息）
 git init
-把文件添加到git仓库（暂存区stage）
+把文件添加到Git本地仓库暂存区（stage）
 git add 文件名.文件类型
-把文件提交到git仓库（当前分支）
+#跟踪新文件
+#将已跟踪的文件的修改内容添加到暂存区
+#将合并时有冲突的文件标记为已解决冲突
+把文件提交到Git本地仓库（当前分支）
 git commit -m "本次提交说明"
-查看git仓库当前状态
+
+查看git仓库当前状态（包含当前所在分支、已跟踪的文件是否被修改、是否存在未跟踪的文件、当前分支同远程服务器上对应的分支是否偏离等信息）
 git status
+查看git仓库的修改内容
+git diff
 查看指定文件的修改内容
 git diff 文件名.文件类型
 提交修改
@@ -46,7 +56,7 @@ ssh-keygen -t rsa -C "邮箱"
 登录GitHub->Settings->SSH and GPG keys->new SSH key
 自定义Title，Key文本框中添加id_rsa.pub文件的内容
 Add key
-将本地Git仓库与GitHub的远程仓库（.git结尾）关联
+将本地Git仓库与GitHub的远程仓库关联（远程仓库地址以.git结尾，origin为远程仓库别名）
 git remote add origin GitHub仓库地址 #origin为远程仓库名
 查看远程仓库信息
 git remote -v
@@ -56,8 +66,8 @@ git remote rm origin
 git push -u origin master #第一次
 git push origin master #后续提交
 git push origin 分支名 #推送到远程仓库的指定分支
-将远程仓库克隆到本地
-git clone GitHub仓库地址
+将远程仓库克隆到本地（支持HTTP协议https://、SSH协议git@、GIT协议git://）
+git clone Git远程仓库地址
 创建分支
 git branch 分支名
 查看分支（*为当前分支）
@@ -113,18 +123,19 @@ git push origin :refs/tags/标签名
 
 ==================================================================
 其他命令：
-1.在当前目录下创建目录
+创建目录
 mkdir 目录名称
-2.进入目录
+进入目录
 cd 目录名称
-3.显示当前目录
+显示当前目录
 pwd
-4.显示当前目录下的可见文件及目录
+显示当前目录下的可见文件及目录
 ls
-5.显示当前目录下的全部文件及文件夹（包括隐藏的文件及目录）
+dir
+显示当前目录下的全部文件及文件夹（包括隐藏的文件及目录）
 ls -ah
-6.打开文件
+打开文件
 cat 文件名.文件类型
-7.删除文件
+删除文件
 rm 文件名.文件类型
 
