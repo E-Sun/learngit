@@ -48,8 +48,11 @@ git diff HEAD -- 文件名.文件类型
 git checkout -- 文件名.文件类型
 把add到暂存区stage的修改回退到工作区
 git reset HEAD 文件名.文件类型
-删除版本库中的文件
+删除本地文件并取消版本库中对指定文件的追踪
 git rm 文件名.文件类型
+git commit -m "本次提交说明"
+取消版本库中对指定文件的追踪，本地保留该文件
+git rm --cached 文件名.文件类型
 git commit -m "本次提交说明"
 创建SSH Key（生成的Key保存在/系统盘/用户/用户名/.ssh）
 ssh-keygen -t rsa -C "邮箱"
