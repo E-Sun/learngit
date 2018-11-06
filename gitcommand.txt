@@ -89,6 +89,8 @@ git clone Git远程仓库地址
 git branch 分支名
 查看分支（*为当前分支）
 git branch
+查看各个分支当前所指向的对象
+git log --oneline --decorate
 切换分支
 git checkout 分支名
 创建并切换分支
