@@ -126,6 +126,8 @@ git log -p
 git log <file>
 查看操作记录
 git reflog
+查看分叉历史
+git log --oneline --decorate --graph --all
 查看工作区指定文件和版本库中最新版本的区别
 git diff HEAD -- <file>
 
@@ -151,8 +153,12 @@ git remote show <alias>
 * 执行pull操作会自动合并的分支名
 查看当前账户对远程仓库的读写权限及地址
 git remote -v
-删除本地仓库与远程仓库的关联
-git remote rm origin
+移除本地仓库与远程仓库的关联
+git remote rm <alias>
+将远程仓库克隆到本地
+git clone <url>
+#克隆到本地的远程仓库的alias默认为origin
+#支持HTTP协议https://、SSH协议user@server:path/to/repo.git、GIT协议git://
 从远程仓库拉取本地没有的数据
 git fetch <alias> #不填参数，默认从本地仓库关联的远程仓库拉取数据
 #fetch操作不会自动合并或修改工作区的内容，发生冲突时需要手动合并
@@ -171,20 +177,17 @@ git branch -r
 git checkout -b 本地分支名 origin/远程仓库分支名
 删除远程仓库的分支
 git push --delete origin 分支名
-将远程仓库克隆到本地
-git clone <url>
-#克隆到本地的远程仓库的alias默认为origin
-#支持HTTP协议https://、SSH协议user@server:path/to/repo.git、GIT协议git://
+
 创建分支
 git branch 分支名
 查看分支（*为当前分支）
 git branch
-查看各个分支当前所指向的对象
-git log --oneline --decorate
 切换分支
 git checkout 分支名
 创建并切换分支
 git checkout -b 分支名
+查看各个分支当前所指向的对象
+git log --oneline --decorate
 创建和远程仓库分支对应的分支
 git checkout -b 分支名 origin/远程仓库分支名
 合并指定分支到当前分支（默认使用Fast forward模式）
@@ -214,23 +217,31 @@ git branch --set-upstream-to=origin/远程仓库分支名 本地仓库分支名
 将本地未push的分叉提交历史整理成直线
 git rebase
 #目的：使我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。
+
 对当前分支的最新提交创建标签
-git tag 标签名 #例：v1.0
-git tag -a 标签名 -m "标签说明" #创建带有说明的标签
+git tag <tag_name> #例：v1.0
+git tag -a <tag_name> -m "标签说明" #创建附注标签
+#附注标签包含：
+* 说明
+* 打标签者的名字、邮箱
+* 创建日期
+# 附注标签可以使用GPG签名与验证
 对当前分支的指定提交创建标签
-git tag 标签名 提交操作版本号
+git tag <tag_name> 提交操作版本号
 查看当前分支的所有标签
 git tag
 查看标签信息
-git show 标签名
+git show <tag_name>
 删除本地指定标签
-git tag -d 标签名
+git tag -d <tag_name>
 将指定标签推送到远程仓库
-git push origin 标签名
-git push origin --tags #将所有本地标签推送到远程仓库
+git push <alias> <tag_name>
+git push <alias> --tags #将所有本地标签推送到远程仓库
 删除远程仓库的指定标签
-git tag -d 标签名
-git push origin :refs/tags/标签名
+git tag -d <tag_name>
+git push <alias> :refs/tags/<tag_name>
+根据指定标签中的文件快照创建一个分支
+git checkout -b <branch> <tag_name>
 
 ==================================================================
 其他命令：
