@@ -140,6 +140,8 @@ ssh-keygen -t rsa -C "邮箱"
 Add key
 将本地Git仓库与GitHub的远程仓库关联（远程仓库地址以.git结尾，origin为远程仓库别名）
 git remote add <alias> <url> #参数：远程仓库别名、地址
+将本地Git仓库与另一个本地版本库关联
+git remote add <alias> <url> #例：/目录名称.git
 查看关联的远程仓库名
 git remote
 重命名远程仓库
@@ -159,12 +161,19 @@ git remote rm <alias>
 git clone <url>
 #克隆到本地的远程仓库的alias默认为origin
 #支持HTTP协议https://、SSH协议user@server:path/to/repo.git、GIT协议git://
+将远程仓库克隆到本地并指定别名
+git clone -o <alias>
 从远程仓库拉取本地没有的数据
 git fetch <alias> #不填参数，默认从本地仓库关联的远程仓库拉取数据
+抓取所有远程仓库
+git fetch --all
 #fetch操作不会自动合并或修改工作区的内容，发生冲突时需要手动合并
 从远程仓库拉取当前分支的最新提交
 git pull
 #pull操作将自动合并工作区当前分支与远程仓库对应分支的修改
+#等效于连续执行git fetch, git merge两个命令
+从远程仓库拉取全部数据放入并执行变基操作
+git pull --rebase
 把提交到本地仓库的内容推送到远程仓库
 git push <alias> <branch> #参数：远程仓库别名、分支名
 #限制条件：
@@ -176,12 +185,18 @@ git branch -r
 从远程仓库拉取分支到本地Git仓库
 git checkout -b 本地分支名 origin/远程仓库分支名
 删除远程仓库的分支
-git push --delete origin 分支名
+git push origin --delete 分支名
 
 创建分支
 git branch 分支名
+基于指定分支创建新分支
+git branch 新分支名 指定分支
 查看分支（*为当前分支）
 git branch
+查看每个分支的最后一次提交
+git branch -v
+查看本地分支的更多信息
+git branch -vv
 切换分支
 git checkout 分支名
 创建并切换分支
@@ -192,6 +207,8 @@ git log --oneline --decorate
 git checkout -b 分支名 origin/远程仓库分支名
 合并指定分支到当前分支（默认使用Fast forward模式）
 git merge 分支名 -m "合并操作描述"
+拣选某个其他分支的提交合并到当前分支
+git cherry-pick <commit_id>
 删除指定分支（已执行过合并操作）
 git branch -d 分支名
 强制删除指定分支（未执行过合并操作）
@@ -200,13 +217,21 @@ git branch -D 分支名
 git log --graph
 合并指定分支到当前分支（使用普通模式），并创建一个新的commit
 git merge --no-ff -m "提交信息" 分支名
-储藏工作区中已被版本库跟踪的文件的修改
+查看哪些分支已合并到当前分支
+git branch --merged
+查看哪些分支未合并到当前分支
+git branch --no-merged
+查看B分支中有哪些提交未被合并入A分支
+git log <branch_A>..<branch_B>
+查看当前分支中有而远程分支没有的提交
+git log <alias>/<branch>..HEAD
+储藏工作区及暂存区中已被版本库跟踪的文件的修改
 git stash
-储藏工作区中的所有修改内容（包括未跟踪的文件）
+储藏工作区及暂存区中的所有修改内容（包括未跟踪的文件）
 git stash -u
 查看工作栈储藏的修改列表
 git stash list
-恢复工作栈储藏的指定修改内容到工作区
+恢复工作栈储藏的指定修改内容到工作区及暂存区
 git stash apply <stash_id> #恢复后不删除stash的内容
 git stash pop <stash_id> #恢复后删除stash的内容
 #不指定stash_id，默认恢复最近一次stash的内容
@@ -214,7 +239,7 @@ git stash pop <stash_id> #恢复后删除stash的内容
 git stash drop <stash_id>
 创建本地仓库的分支与远程仓库的分支的链接关系
 git branch --set-upstream-to=origin/远程仓库分支名 本地仓库分支名
-将本地未push的分叉提交历史整理成直线
+将本地未push的分叉提交历史整理成直线（变基操作）
 git rebase
 #目的：使我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。
 
